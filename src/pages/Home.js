@@ -21,20 +21,20 @@ export const Home = () => {
             clientName: "weather",
         },
     });
-    weather && console.log(weather.data);
+    weather.data && console.log("Weather Data", weather.data);
 
     const graph = useQuery(GET_POOLS, {
         context: { clientName: "graph" },
     });
-    graph && console.log(graph.data);
+    graph.data && console.log("Graph Data", graph.data);
 
     const country = useQuery(GET_COUNTRIES, {
         context: { clientName: "country" },
     });
-    country && console.log(country.data);
+    country.data && console.log("Country Data", country.data);
 
     const pokemon = useQuery(GET_POKEMON_DETAILS);
-    country && console.log(pokemon.data);
+    pokemon.data && console.log("Pokemon Data", pokemon.data);
 
     // if (error) {
     //     console.log("Error", error);
