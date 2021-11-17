@@ -15,26 +15,107 @@ export const Home = () => {
     //         variables: { name: citySearched },
     //     }
     // );
-    const weather = useQuery(GET_WEATHER_QUERY, {
+
+    const {
+        data: graphData,
+        error: graphError,
+        loading: graphLoading,
+    } = useQuery(GET_POOLS, {
+        context: { clientName: "graph" },
+    });
+
+    // To Fetch Data Once
+    React.useEffect(() => {
+        const onCompleted = (graphData) => {
+            console.log("Graph Data", graphData);
+        };
+        const onError = (error) => {
+            console.log("Graph Error", error);
+        };
+        if (onCompleted || onError) {
+            if (onCompleted && !graphLoading && !graphError) {
+                onCompleted(graphData);
+            } else if (onError && !graphLoading && graphError) {
+                onError(graphError);
+            }
+        }
+    }, [graphLoading, graphData, graphError]);
+
+    const {
+        data: weatherData,
+        error: weatherError,
+        loading: weatherLoading,
+    } = useQuery(GET_WEATHER_QUERY, {
         variables: { name: "Rome" },
         context: {
             clientName: "weather",
         },
     });
-    weather.data && console.log("Weather Data", weather.data);
 
-    const graph = useQuery(GET_POOLS, {
-        context: { clientName: "graph" },
-    });
-    graph.data && console.log("Graph Data", graph.data);
+    // To Fetch Data Once
+    React.useEffect(() => {
+        const onCompleted = (data) => {
+            console.log("Weather Data", data);
+        };
+        const onError = (error) => {
+            console.log("Weather Error", error);
+        };
+        if (onCompleted || onError) {
+            if (onCompleted && !weatherLoading && !weatherError) {
+                onCompleted(weatherData);
+            } else if (onError && !weatherLoading && weatherError) {
+                onError(weatherError);
+            }
+        }
+    }, [weatherLoading, weatherData, weatherError]);
 
-    const country = useQuery(GET_COUNTRIES, {
+    const {
+        data: countryData,
+        error: countryError,
+        loading: countryLoading,
+    } = useQuery(GET_COUNTRIES, {
         context: { clientName: "country" },
     });
-    country.data && console.log("Country Data", country.data);
 
-    const pokemon = useQuery(GET_POKEMON_DETAILS);
-    pokemon.data && console.log("Pokemon Data", pokemon.data);
+    // To Fetch Data Once
+    React.useEffect(() => {
+        const onCompleted = (data) => {
+            console.log("Country Data", data);
+        };
+        const onError = (error) => {
+            console.log("Country Error", error);
+        };
+        if (onCompleted || onError) {
+            if (onCompleted && !countryLoading && !countryError) {
+                onCompleted(countryData);
+            } else if (onError && !countryLoading && countryError) {
+                onError(countryError);
+            }
+        }
+    }, [countryLoading, countryData, countryError]);
+
+    const {
+        data: pokemonData,
+        error: pokemonError,
+        loading: pokemonLoading,
+    } = useQuery(GET_POKEMON_DETAILS);
+
+    // To Fetch Data Once
+    React.useEffect(() => {
+        const onCompleted = (data) => {
+            console.log("Pokemon Data", data);
+        };
+        const onError = (error) => {
+            console.log("Pokemon Error", error);
+        };
+        if (onCompleted || onError) {
+            if (onCompleted && !pokemonLoading && !pokemonError) {
+                onCompleted(pokemonData);
+            } else if (onError && !pokemonLoading && pokemonError) {
+                onError(pokemonError);
+            }
+        }
+    }, [pokemonLoading, pokemonData, pokemonError]);
 
     // if (error) {
     //     console.log("Error", error);

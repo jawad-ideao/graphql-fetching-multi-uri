@@ -45,10 +45,6 @@ function App() {
     });
 
     const client = new ApolloClient({
-        cache: new InMemoryCache(),
-        // uri: "https://api.thegraph.com/subgraphs/name/ace-contributor/ideapad",
-        // uri: "https://graphql-weather-api.herokuapp.com/",
-        // uri: "https://api.studio.thegraph.com/query/10618/ideapad2/v0.0.1",
         link: ApolloLink.split(
             (operation) => operation.getContext().clientName === "graph",
             subGraphLink,
@@ -63,7 +59,7 @@ function App() {
                 )
             )
         ),
-        // link: ApolloLink.from([weatherLink, subGraphLink, countryLink]),
+        cache: new InMemoryCache(),
     });
 
     return (
